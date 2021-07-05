@@ -1,9 +1,6 @@
-mod Helper;
-mod Lexer;
-mod Token;
-mod TokenType;
-
-use crate::Lexer::*;
+mod helper;
+mod lexer;
+mod token;
 
 use std::io::Write;
 
@@ -13,10 +10,10 @@ fn main() {
 
 fn run_prompt() {
     loop {
-        print!("> ");
-        std::io::stdout().flush();
+        print!(">>> ");
+        std::io::stdout().flush().expect("");
         let mut line = String::new();
-        std::io::stdin().read_line(&mut line);
+        std::io::stdin().read_line(&mut line).expect("");
         if line.trim() == "exit()" {
             break;
         }
@@ -25,7 +22,7 @@ fn run_prompt() {
 }
 
 fn run(source: String) {
-    let mut lexer = Lexer::Lexer::new(source);
+    let mut lexer = lexer::Lexer::new(source);
     let tokens = lexer.get_tokens();
 
     match tokens {

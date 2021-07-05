@@ -1,8 +1,7 @@
-use crate::Helper::*;
-use crate::Token::*;
-use crate::TokenType::*;
+use crate::helper::*;
+use crate::token::*;
 
-fn KEYWORDS(text: String) -> Option<TokenType> {
+fn keywords(text: String) -> Option<TokenType> {
     match text.as_str() {
         "and" => Some(TokenType::AND),
         "else" => Some(TokenType::ELSE),
@@ -233,7 +232,7 @@ impl Lexer {
             self.advance();
         }
 
-        let keyword = KEYWORDS(temp.clone());
+        let keyword = keywords(temp.clone());
         match keyword {
             Some(keyword) => self.add_token(keyword),
             None => self.add_token_with_literal(TokenType::IDENTIFIER, Literal::STR(temp)),
