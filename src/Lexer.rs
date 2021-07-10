@@ -20,12 +20,12 @@ fn keywords(text: String) -> Option<TokenType> {
     }
 }
 
+#[derive(Debug)]
 pub struct Lexer {
     source: String,
     tokens: Vec<Token>,
     start: i64,
     current: i64,
-    line: i64,
 }
 
 impl Lexer {
@@ -35,7 +35,6 @@ impl Lexer {
             tokens: vec![],
             start: 0,
             current: 0,
-            line: 1,
         }
     }
 
@@ -47,12 +46,7 @@ impl Lexer {
                 return Err(result.unwrap_err());
             }
         }
-        self.tokens.push(Token::new(
-            TokenType::EOF,
-            String::new(),
-            Literal::NIL,
-            self.line,
-        ));
+        self.tokens.push(Token::new(TokenType::EOF, Literal::NIL));
         return Ok(self.tokens.clone());
     }
 
@@ -188,12 +182,7 @@ impl Lexer {
     }
 
     fn add_token_with_literal(&mut self, token_type: TokenType, literal: Literal) {
-        self.tokens.push(Token::new(
-            token_type,
-            self.source.substring(self.start, self.current),
-            literal,
-            self.line,
-        ));
+        self.tokens.push(Token::new(token_type, literal));
     }
 
     fn number(&mut self) -> Result<(), String> {

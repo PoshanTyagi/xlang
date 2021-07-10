@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum TokenType {
     // Single-character tokens
     LEFT_PAREN,
@@ -26,9 +26,9 @@ pub enum TokenType {
 
     // Literals
     IDENTIFIER,
-    STRING,
     INT,
     FLOAT,
+    STRING,
 
     // Keywords
     AND,
@@ -49,7 +49,7 @@ pub enum TokenType {
     EOF,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum Literal {
     STR(String),
     INT(i64),
@@ -57,21 +57,17 @@ pub enum Literal {
     NIL,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Token {
-    token_type: TokenType,
-    lexeme: String,
-    literal: Literal,
-    line: i64,
+    pub token_type: TokenType,
+    pub literal: Literal,
 }
 
 impl Token {
-    pub fn new(token_type: TokenType, lexeme: String, literal: Literal, line: i64) -> Token {
+    pub fn new(token_type: TokenType, literal: Literal) -> Token {
         Token {
             token_type,
-            lexeme,
             literal,
-            line,
         }
     }
 }
