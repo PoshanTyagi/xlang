@@ -1,4 +1,3 @@
-// use crate::helper::*;
 use crate::node::*;
 use crate::token::*;
 
@@ -85,11 +84,11 @@ impl Parser {
                 Err(right) => return Err(right),
             };
 
-            left_value = Node::BiNode {
+            left_value = Node::Binary(BiNode {
                 left: Box::new(left_value),
                 op: op_tok,
                 right: Box::new(right_value),
-            };
+            });
         }
 
         return Ok(left_value);
@@ -118,11 +117,11 @@ impl Parser {
                 Err(right) => return Err(right),
             };
 
-            left_value = Node::BiNode {
+            left_value = Node::Binary(BiNode {
                 left: Box::new(left_value),
                 op: op_tok,
                 right: Box::new(right_value),
-            };
+            });
         }
 
         return Ok(left_value);
@@ -146,11 +145,11 @@ impl Parser {
                 Err(right) => return Err(right),
             };
 
-            left_value = Node::BiNode {
+            left_value = Node::Binary(BiNode {
                 left: Box::new(left_value),
                 op: op_tok,
                 right: Box::new(right_value),
-            };
+            });
         }
 
         return Ok(left_value);
@@ -174,11 +173,11 @@ impl Parser {
                 Err(right) => return Err(right),
             };
 
-            left_value = Node::BiNode {
+            left_value = Node::Binary(BiNode {
                 left: Box::new(left_value),
                 op: op_tok,
                 right: Box::new(right_value),
-            };
+            });
         }
 
         return Ok(left_value);
@@ -195,10 +194,10 @@ impl Parser {
                 Err(right) => return Err(right),
             };
 
-            return Ok(Node::UniNode {
+            return Ok(Node::Unary(UniNode {
                 op: op_tok,
                 node: Box::new(right_value),
-            });
+            }));
         }
 
         return self.primary();

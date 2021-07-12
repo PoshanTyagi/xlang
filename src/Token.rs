@@ -1,3 +1,5 @@
+use std::fmt;
+
 #[allow(non_camel_case_types)]
 #[derive(Debug, Clone, PartialEq)]
 pub enum TokenType {
@@ -57,7 +59,7 @@ pub enum Literal {
     NIL,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Clone, PartialEq)]
 pub struct Token {
     pub token_type: TokenType,
     pub literal: Literal,
@@ -69,5 +71,11 @@ impl Token {
             token_type,
             literal,
         }
+    }
+}
+
+impl fmt::Debug for Token {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({:?}, {:?})", self.token_type, self.literal)
     }
 }
